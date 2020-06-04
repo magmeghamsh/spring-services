@@ -3,10 +3,12 @@ package com.meg.springservices.ResidentInfo;
 import com.meg.springservices.ResidentInfo.api.ResidentRequest;
 import com.meg.springservices.ResidentInfo.api.Response;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -14,7 +16,7 @@ import javax.validation.constraints.NotNull;
 @RestController("/dbService")
 @Slf4j
 @Validated
-public class DbServiceController {
+public class ResidentController {
 
     @GetMapping("/getPerson")
     public String getAllPersons() {
@@ -23,11 +25,11 @@ public class DbServiceController {
 
     @PostMapping(value = "/createResident", produces = "application/json", consumes = "application/json")
     public ResponseEntity<Response> createPerson(
-            @RequestHeader("Source") @NotNull  String source,
+            @RequestHeader("Source") @NotNull String source,
             @RequestHeader("TraceId") @NotBlank String traceId,
-            @RequestBody  @Valid ResidentRequest residentRequest) {
+            @RequestBody @Valid ResidentRequest residentRequest) {
 
-        log.info("Create resident Request Received: "+ residentRequest.toString());
+        log.info("Create resident Request Received: " + residentRequest.toString());
         Response response = Response.builder()
                 .message("Resident info created")
                 .build();
